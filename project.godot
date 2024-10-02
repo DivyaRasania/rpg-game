@@ -12,8 +12,7 @@ config_version=5
 
 config/name="RPG Game"
 config/features=PackedStringArray("4.3", "Forward Plus")
-boot_splash/image="res://icon.png"
-config/icon="res://icon.png"
+config/icon="res://icon.svg"
 
 [display]
 
