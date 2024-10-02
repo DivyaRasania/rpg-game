@@ -4,7 +4,7 @@ const SPEED = 100
 var current_direction = "none"
 
 func _ready():
-	$AnimatedSprite2D.play("front_idle")
+	$AnimatedSprite2D.play("idle_front")
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -46,25 +46,25 @@ func play_animation(movement):
 	if direction == "right":
 		animation.flip_h = false
 		if movement == 1:
-			animation.play("side_walk")
+			animation.play("walk_side")
 		elif movement == 0:
-			animation.play("side_idle")
+			animation.play("idle_side")
 	if direction == "left":
 		animation.flip_h = true
 		if movement == 1:
-			animation.play("side_walk")
+			animation.play("walk_side")
 		elif movement == 0:
-			animation.play("side_idle")
+			animation.play("idle_side")
 	
 	if direction == "down":
 		animation.flip_h = false
 		if movement == 1:
-			animation.play("front_walk")
+			animation.play("walk_front")
 		elif movement == 0:
-			animation.play("front_idle")
+			animation.play("idle_front")
 	if direction == "up":
 		animation.flip_h = true
 		if movement == 1:
-			animation.play("back_walk")
+			animation.play("walk_back")
 		elif movement == 0:
-			animation.play("back_idle")
+			animation.play("idle_back")

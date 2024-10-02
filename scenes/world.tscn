@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://byymt36r5asdt"]
+[gd_scene load_steps=10 format=3 uid="uid://byymt36r5asdt"]
 
 [ext_resource type="Texture2D" uid="uid://cax1s3vm8idlb" path="res://art/tilesets/plains.png" id="1_8bh2d"]
 [ext_resource type="Texture2D" uid="uid://ce230qyugsh85" path="res://art/tilesets/grass.png" id="2_s1chg"]
 [ext_resource type="Texture2D" uid="uid://dgg0oj3muujej" path="res://art/objects/objects.png" id="3_jppj6"]
 [ext_resource type="PackedScene" uid="uid://v4hrjcqkel1b" path="res://scenes/player.tscn" id="4_ucp33"]
+[ext_resource type="PackedScene" uid="uid://coegvqdmc5s6" path="res://scenes/enemy.tscn" id="5_3hyk6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pcnpt"]
 texture = ExtResource("1_8bh2d")
@@ -43,25 +44,42 @@ texture = ExtResource("2_s1chg")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hdpr8"]
 texture = ExtResource("3_jppj6")
 0:0/0 = 0
+0:0/0/y_sort_origin = 4
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.87782, 2.91682, 5.87782, 2.91682, 1.81196, 4.86136, -1.81196, 4.86136)
 0:1/0 = 0
+0:1/0/y_sort_origin = 5
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.8125, -2.75, 0.6875, -0.375, 6.8125, -1.875, 6.4375, 3.375, 3.1875, 6.625, -1.1875, 6.875, -6.8125, 3.875, -8, 0.25)
 5:0/0 = 0
+5:0/0/y_sort_origin = 5
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7.11526, 0.972272, 7.02687, 1.06066, 6.93849, 6.01041, -7.20365, 5.92202)
 0:5/size_in_atlas = Vector2i(3, 4)
 0:5/0 = 0
+0:5/0/y_sort_origin = 20
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.1875, 25.875, -11.6875, 22.5, -11.9375, 18.875, -11.6875, 15.125, -9.6875, 13.25, 7.4375, 12.25, 11.8125, 18.5, 11.9375, 21.5, 9.8125, 25.75)
 6:7/size_in_atlas = Vector2i(2, 2)
 6:7/0 = 0
+6:7/0/y_sort_origin = 9
+6:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-9.8125, 14.75, -11.8125, 13.25, -15.5625, 10.25, -15.8125, 6.875, 15.5625, 6.125, 15.6875, 8.75, 10.3125, 13.625, 0.0625, 14.875)
 8:6/size_in_atlas = Vector2i(2, 3)
 8:6/0 = 0
+8:6/0/y_sort_origin = 17
+8:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.8125, 18, -5.78944, 20.5945, -1.8125, 21.875, 1.63519, 21.8319, 5.96622, 20.7713, 5.87783, 18.2964, -0.4375, 16.625)
 10:7/size_in_atlas = Vector2i(2, 2)
 10:7/0 = 0
+10:7/0/y_sort_origin = 5
+10:7/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4.5625, -8, 5.5625, -8, 11.6875, 1.375, 11.5625, 4.5, 9.4375, 9, -6.8125, 9, -11.9375, 5.625, -12.3125, -1.875)
 
 [sub_resource type="TileSet" id="TileSet_5edjg"]
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_pcnpt")
 sources/1 = SubResource("TileSetAtlasSource_a00xm")
 sources/2 = SubResource("TileSetAtlasSource_hdpr8")
 
 [node name="world" type="Node2D"]
+y_sort_enabled = true
 
 [node name="TileMap" type="TileMap" parent="."]
+y_sort_enabled = true
 tile_set = SubResource("TileSet_5edjg")
 format = 2
 layer_0/name = "ground"
@@ -69,6 +87,11 @@ layer_0/tile_data = PackedInt32Array(0, 196608, 0, 65536, 196608, 1, 131072, 262
 layer_1/name = "cliff"
 layer_1/tile_data = PackedInt32Array(15, 65536, 5, 65551, 65536, 5, 131087, 65536, 5, 196623, 65536, 6, 196624, 131072, 6, 196625, 327680, 4, 262161, 65536, 5, 327697, 65536, 6, 327703, 196608, 6, 262167, 262144, 4, 262168, 131072, 6, 262169, 131072, 6, 262170, 131072, 6, 262171, 131072, 6, 327698, 131072, 6, 327699, 131072, 6, 327700, 131072, 6, 327701, 131072, 6, 327702, 131072, 6, 16, 131072, 5, 17, 131072, 5, 18, 131072, 5, 19, 131072, 5, 20, 131072, 5, 21, 131072, 5, 22, 131072, 5, 23, 131072, 5, 24, 131072, 5, 25, 131072, 5, 26, 131072, 5, 27, 131072, 5, 65563, 131072, 5, 65562, 131072, 5, 65561, 131072, 5, 65560, 131072, 5, 65559, 131072, 5, 65558, 131072, 5, 65557, 131072, 5, 65556, 131072, 5, 65555, 131072, 5, 65554, 131072, 5, 65553, 131072, 5, 65552, 131072, 5, 131088, 131072, 5, 131089, 131072, 5, 131090, 131072, 5, 131091, 131072, 5, 131092, 131072, 5, 131093, 131072, 5, 131094, 131072, 5, 131095, 131072, 5, 131096, 131072, 5, 131097, 131072, 5, 131098, 131072, 5, 131099, 131072, 5, 196635, 131072, 5, 196634, 131072, 5, 196633, 131072, 5, 196632, 131072, 5, 196631, 131072, 5, 196630, 131072, 5, 196629, 131072, 5, 196628, 131072, 5, 196627, 131072, 5, 196626, 131072, 5, 262162, 131072, 5, 262163, 131072, 5, 262164, 131072, 5, 262165, 131072, 5, 262166, 131072, 5)
 layer_2/name = "ysort"
+layer_2/y_sort_enabled = true
 layer_2/tile_data = PackedInt32Array(589838, 2, 5, 65538, 393218, 7, 65549, 655362, 7, 720905, 655362, 7, 196618, 2, 5, 655384, 655362, 7, 589825, 524290, 6, 393236, 2, 1, 196634, 2, 1, 655386, 2, 1, 196613, 2, 1, 131078, 2, 1, 393224, 2, 0, 393223, 327682, 0, 655364, 393218, 7, 655372, 393218, 7, 196615, 524290, 6, 65554, 524290, 6, 131093, 2, 5, 196632, 2, 1, 65560, 2, 1, 65562, 655362, 7, 131097, 393218, 7, 720917, 393218, 7, 262156, 2, 1)
 
 [node name="player" parent="." instance=ExtResource("4_ucp33")]
+position = Vector2(1, 40)
+
+[node name="enemy" parent="." instance=ExtResource("5_3hyk6")]
+position = Vector2(160, 115)
