@@ -1,0 +1,1 @@
+Play specific slime animation when looking at player
