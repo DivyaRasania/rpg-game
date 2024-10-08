@@ -1,1 +1,3 @@
 Play specific slime animation when looking at player
+Make it 30s long
+Recenter cliff_side scene camera like world

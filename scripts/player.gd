@@ -1,9 +1,7 @@
 extends CharacterBody2D
 
-# Constants
 const SPEED = 100
 
-# Variables
 var current_direction = "none"
 var enemy_in_attack_range = false
 var enemy_attack_cooldown = true
@@ -12,14 +10,14 @@ var health = 100
 var attack_in_progress = false
 
 func _ready():
-	$AnimatedSprite2D.play("idle_front") # Setting base player animation
+	$AnimatedSprite2D.play("idle_front")
 
 func _physics_process(delta):
 	player_movement(delta)
 	enemy_attack()
 	attack()
+	current_camera()
 
-# Managing how player is moved using arrow keys
 func player_movement(delta):
 	if Input.is_action_pressed("move_right"):
 		current_direction = "right"
@@ -48,7 +46,6 @@ func player_movement(delta):
 
 	move_and_slide()
 
-# Change direction of the player according to direction its going and managing attack animations
 func play_animation(movement):
 	var direction = current_direction
 	var animation = $AnimatedSprite2D
@@ -88,7 +85,6 @@ func play_animation(movement):
 func player():
 	pass
 
-# If the body entered into player_hitbox it enemy, set enemy_in_attack_range to true and viceversa
 func _on_player_hitbox_body_entered(body):
 	if body.has_method("enemy"):
 		enemy_in_attack_range = true
@@ -97,19 +93,16 @@ func _on_player_hitbox_body_exited(body):
 	if body.has_method("enemy"):
 		enemy_in_attack_range = false
 
-# If both enemy_in_attack_range and enemy_attack_cooldown is true, player will take 20 damage from enemy and set enemy_attack_cooldown to false
 func enemy_attack():
 	if enemy_in_attack_range and enemy_attack_cooldown:
 		health -= 20
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
 		print("player health = ", health)
-		# If health is <= 0 player is removed from scene
 		if health <= 0:
 			player_alive = false
 			self.queue_free()
 
-# Setting enemy_attack_cooldown to true after 0.5s
 func _on_attack_cooldown_timeout():
 	enemy_attack_cooldown = true
 
@@ -124,16 +117,16 @@ func attack():
 			$AnimatedSprite2D.flip_h = false
 			$AnimatedSprite2D.play("attack_side")
 			$deal_attack_timer.start()
-		
+
 		if direction == "left":
 			$AnimatedSprite2D.flip_h = true
 			$AnimatedSprite2D.play("attack_side")
 			$deal_attack_timer.start()
-			
+
 		if direction == "down":
 			$AnimatedSprite2D.play("attack_front")
 			$deal_attack_timer.start()
-		
+
 		if direction == "up":
 			$AnimatedSprite2D.play("attack_back")
 			$deal_attack_timer.start()
@@ -142,3 +135,11 @@ func _on_deal_attack_timer_timeout():
 	$deal_attack_timer.stop()
 	global.player_current_attack = false
 	attack_in_progress = false
+
+func current_camera():
+	if global.current_scene == "world":
+		$world_camera.enabled = true
+		$cliffside_camera.enabled = false
+	elif global.current_scene == "cliff_side":
+		$world_camera.enabled = false
+		$cliffside_camera.enabled = true
