@@ -17,6 +17,7 @@ func _physics_process(delta):
 	enemy_attack()
 	attack()
 	current_camera()
+	update_health()
 
 func player_movement(delta):
 	if Input.is_action_pressed("move_right"):
@@ -98,7 +99,6 @@ func enemy_attack():
 		health -= 20
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
-		print("player health = ", health)
 		if health <= 0:
 			player_alive = false
 			self.queue_free()
@@ -143,3 +143,21 @@ func current_camera():
 	elif global.current_scene == "cliff_side":
 		$world_camera.enabled = false
 		$cliffside_camera.enabled = true
+
+func update_health():
+	var health_bar = $healthbar
+	health_bar.value = health
+	
+	if health >= 100:
+		health_bar.visible = false
+	else:
+		health_bar.visible = true
+
+func _on_regen_timer_timeout():
+	if health < 100:
+		health += 20
+		if health > 100:
+			health = 100
+	
+	if health <= 0:
+		health = 0

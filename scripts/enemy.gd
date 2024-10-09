@@ -3,7 +3,7 @@ extends CharacterBody2D
 var speed = 50
 var player_chase = false
 var player = null
-var health = 80
+var health = 100
 var player_in_attack_zone = false
 var can_take_damage = true
 
@@ -12,6 +12,7 @@ func _ready():
 
 func _physics_process(delta):
 	deal_with_damage()
+	update_health()
 	
 	if player_chase:
 		position += (player.position - position) / speed
@@ -49,9 +50,26 @@ func deal_with_damage():
 			$take_damage_cooldown.start()
 			can_take_damage = false
 			health -= 20
-			print("slime health = ", health)
 			if health <= 0:
 				self.queue_free()
 
 func _on_take_damage_cooldown_timeout():
 	can_take_damage = true
+
+func update_health():
+	var health_bar = $healthbar
+	health_bar.value = health
+	
+	if health >= 100:
+		health_bar.visible = false
+	else:
+		health_bar.visible = true
+
+func _on_regen_timer_timeout():
+	if health < 100:
+		health += 10
+		if health > 100:
+			health = 100
+	
+	if health <= 0:
+		health = 0
