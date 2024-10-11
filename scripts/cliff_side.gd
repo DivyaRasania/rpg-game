@@ -15,3 +15,8 @@ func change_scene():
 	if global.transition_scene and global.current_scene == "cliff_side":
 		get_tree().change_scene_to_file("res://scenes/world.tscn")
 		global.current_scene = "world"
+
+func _on_area_2d_body_entered(body):
+	if body.has_method("player"):
+		global.player_health = 100
+	$heal.hide()

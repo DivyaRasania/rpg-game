@@ -1,0 +1,79 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmky635vquum5"]
+
+[ext_resource type="Script" path="res://scripts/pause_screen.gd" id="1_ujfeh"]
+[ext_resource type="FontFile" uid="uid://syy8nnm73eg1" path="res://assets/fonts/AntonSC-Regular.ttf" id="2_vyvnf"]
+
+[node name="OptionsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ujfeh")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.489077, 0.714844, 0.349045, 1)
+
+[node name="VolumeButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -66.0
+offset_bottom = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_vyvnf")
+theme_override_font_sizes/font_size = 30
+text = "Volume"
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -299.0
+offset_top = -8.0
+offset_right = 201.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+min_value = -10.0
+max_value = 10.0
+
+[node name="MuteCheckBox" type="CheckBox" parent="."]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 308.5
+offset_right = 846.0
+offset_bottom = 339.5
+text = "Mute"
+
+[node name="BackButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 12.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_vyvnf")
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[connection signal="pressed" from="VolumeButton" to="." method="_on_volume_button_pressed"]
+[connection signal="value_changed" from="VolumeSlider" to="." method="_on_volume_slider_value_changed"]
+[connection signal="toggled" from="MuteCheckBox" to="." method="_on_mute_check_box_toggled"]
+[connection signal="pressed" from="BackButton" to="." method="_on_back_button_pressed"]

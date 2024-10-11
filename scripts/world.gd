@@ -7,6 +7,9 @@ func _ready():
 	else:
 		$player.position.x = global.player_exit_cliffside_posx
 		$player.position.y = global.player_exit_cliffside_posy
+		
+		if global.slime_dead:
+			$enemy.queue_free()
 
 func _process(delta):
 	change_scene()

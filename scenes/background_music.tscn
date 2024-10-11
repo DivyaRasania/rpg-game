@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b5cri3myb8u2e"]
+
+[ext_resource type="AudioStream" uid="uid://cixp8l1yowmf6" path="res://assets/background_music/Hollow Knight OST - Greenpath.mp3" id="1_2wckd"]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_2wckd")
+autoplay = true
+bus = &"background_music"
+parameters/looping = true

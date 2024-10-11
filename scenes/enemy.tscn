@@ -1,7 +1,7 @@
 [gd_scene load_steps=72 format=3 uid="uid://coegvqdmc5s6"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_6a5ap"]
-[ext_resource type="Texture2D" uid="uid://der7hup45pkfo" path="res://art/characters/slime.png" id="1_mj7rs"]
+[ext_resource type="Texture2D" uid="uid://der7hup45pkfo" path="res://assets/art/characters/slime.png" id="1_mj7rs"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k13b1"]
 atlas = ExtResource("1_mj7rs")
@@ -540,9 +540,8 @@ script = ExtResource("1_6a5ap")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cnpom")
-animation = &"walking_side"
-frame = 4
-frame_progress = 0.734626
+animation = &"death"
+frame_progress = 0.302978
 offset = Vector2(0, -6)
 
 [node name="detection_area" type="Area2D" parent="."]

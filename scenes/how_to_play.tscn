@@ -1,0 +1,126 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvrtbw0ov0gjm"]
+
+[ext_resource type="FontFile" uid="uid://syy8nnm73eg1" path="res://assets/fonts/AntonSC-Regular.ttf" id="1_5kf56"]
+[ext_resource type="Script" path="res://scripts/how_to_play.gd" id="1_jpijd"]
+
+[node name="HowToPlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jpijd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.489077, 0.714844, 0.349045, 1)
+
+[node name="Movement&Attack" type="Label" parent="."]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 46.0
+offset_right = 559.0
+offset_bottom = 122.0
+theme_override_fonts/font = ExtResource("1_5kf56")
+theme_override_font_sizes/font_size = 50
+text = "Movement and Attack"
+autowrap_mode = 2
+
+[node name="Label" type="Label" parent="Movement&Attack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 86.0
+offset_right = 1.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_5kf56")
+theme_override_font_sizes/font_size = 30
+text = "· Use WASD to move up/left/right/down
+  respectively"
+
+[node name="Label2" type="Label" parent="Movement&Attack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = 196.0
+offset_right = -10.0
+offset_bottom = 215.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_5kf56")
+theme_override_font_sizes/font_size = 30
+text = "· You can also use arrow keys to move
+  around"
+
+[node name="Label3" type="Label" parent="Movement&Attack"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = 300.0
+offset_right = -9.0
+offset_bottom = 270.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_5kf56")
+theme_override_font_sizes/font_size = 30
+text = "· Use left click or space to attack slime"
+
+[node name="HiddenPlaces" type="Label" parent="."]
+layout_mode = 0
+offset_left = 658.0
+offset_top = 49.0
+offset_right = 936.0
+offset_bottom = 125.0
+theme_override_fonts/font = ExtResource("1_5kf56")
+theme_override_font_sizes/font_size = 50
+text = "Hidden Places"
+
+[node name="Label5" type="Label" parent="HiddenPlaces"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 81.0
+offset_right = 155.0
+offset_bottom = 198.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_5kf56")
+theme_override_font_sizes/font_size = 30
+text = "· There is a hidden entry to a 
+  place to gain health. Try to find 
+  it if you want to get your health 
+  back to full"
+
+[node name="Back" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -210.0
+offset_top = -110.0
+offset_right = -50.0
+offset_bottom = -50.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_5kf56")
+theme_override_font_sizes/font_size = 30
+text = "Back"
+
+[connection signal="pressed" from="Back" to="." method="_on_back_pressed"]

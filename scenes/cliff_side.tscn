@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://cai7vmxeve1b0"]
+[gd_scene load_steps=13 format=3 uid="uid://cai7vmxeve1b0"]
 
 [ext_resource type="Script" path="res://scripts/cliff_side.gd" id="1_425o1"]
-[ext_resource type="Texture2D" uid="uid://cax1s3vm8idlb" path="res://art/tilesets/plains.png" id="1_tod55"]
-[ext_resource type="Texture2D" uid="uid://ce230qyugsh85" path="res://art/tilesets/grass.png" id="2_y6a5w"]
-[ext_resource type="Texture2D" uid="uid://dgg0oj3muujej" path="res://art/objects/objects.png" id="3_ifoes"]
+[ext_resource type="Texture2D" uid="uid://cax1s3vm8idlb" path="res://assets/art/tilesets/plains.png" id="1_tod55"]
+[ext_resource type="Texture2D" uid="uid://ce230qyugsh85" path="res://assets/art/tilesets/grass.png" id="2_y6a5w"]
+[ext_resource type="Texture2D" uid="uid://dgg0oj3muujej" path="res://assets/art/objects/objects.png" id="3_ifoes"]
 [ext_resource type="PackedScene" uid="uid://v4hrjcqkel1b" path="res://scenes/player.tscn" id="4_f17vw"]
+[ext_resource type="Texture2D" uid="uid://byixfkid4hpf3" path="res://assets/heal_potion.png" id="6_vs6ny"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n1c6a"]
 texture = ExtResource("1_tod55")
@@ -75,6 +76,9 @@ sources/0 = SubResource("TileSetAtlasSource_n1c6a")
 sources/1 = SubResource("TileSetAtlasSource_iceet")
 sources/2 = SubResource("TileSetAtlasSource_1v4bv")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d76bt"]
+size = Vector2(11, 15)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjrdw"]
 size = Vector2(50.5, 16.5)
 
@@ -97,6 +101,16 @@ layer_2/y_sort_enabled = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="collisions"]
 polygon = PackedVector2Array(15, 17, 160, 17, 161, 146, 137, 147, 131, 155, 131, 177, 120, 180, 115, 188, 114, 208, 63, 208, 63, 172, 57, 162, 16, 162, 13, 16, 7, 11, 8, 222, 180, 222, 180, 9, 10, 9)
 
+[node name="heal" type="Sprite2D" parent="."]
+position = Vector2(95, 111)
+texture = ExtResource("6_vs6ny")
+
+[node name="Area2D" type="Area2D" parent="heal"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="heal/Area2D"]
+position = Vector2(-2.5, -4.5)
+shape = SubResource("RectangleShape2D_d76bt")
+
 [node name="player" parent="." instance=ExtResource("4_f17vw")]
 position = Vector2(90, 178)
 
@@ -106,5 +120,6 @@ position = Vector2(90, 178)
 position = Vector2(89, 199.75)
 shape = SubResource("RectangleShape2D_qjrdw")
 
+[connection signal="body_entered" from="heal/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_entered" from="cliffside_exit_point" to="." method="_on_cliffside_exit_point_body_entered"]
 [connection signal="body_exited" from="cliffside_exit_point" to="." method="_on_cliffside_exit_point_body_exited"]

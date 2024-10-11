@@ -3,7 +3,6 @@ extends CharacterBody2D
 var speed = 50
 var player_chase = false
 var player = null
-var health = 100
 var player_in_attack_zone = false
 var can_take_damage = true
 
@@ -49,27 +48,28 @@ func deal_with_damage():
 		if can_take_damage:
 			$take_damage_cooldown.start()
 			can_take_damage = false
-			health -= 20
-			if health <= 0:
+			global.enemy_health -= 20
+			if global.enemy_health <= 0:
 				self.queue_free()
+				global.slime_dead = true
 
 func _on_take_damage_cooldown_timeout():
 	can_take_damage = true
 
 func update_health():
 	var health_bar = $healthbar
-	health_bar.value = health
+	health_bar.value = global.enemy_health
 	
-	if health >= 100:
+	if global.enemy_health >= 100:
 		health_bar.visible = false
 	else:
 		health_bar.visible = true
 
 func _on_regen_timer_timeout():
-	if health < 100:
-		health += 10
-		if health > 100:
-			health = 100
+	if global.enemy_health < 100:
+		global.enemy_health += 20
+		if global.enemy_health > 100:
+			global.enemy_health = 100
 	
-	if health <= 0:
-		health = 0
+	if global.enemy_health <= 0:
+		global.enemy_health = 0

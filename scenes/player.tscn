@@ -1,7 +1,8 @@
-[gd_scene load_steps=57 format=3 uid="uid://v4hrjcqkel1b"]
+[gd_scene load_steps=58 format=3 uid="uid://v4hrjcqkel1b"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_x2ja2"]
-[ext_resource type="Texture2D" uid="uid://6jfjj0bcfq1" path="res://art/characters/player.png" id="2_qxatd"]
+[ext_resource type="Texture2D" uid="uid://6jfjj0bcfq1" path="res://assets/art/characters/player.png" id="2_qxatd"]
+[ext_resource type="AudioStream" uid="uid://0c838sbu171i" path="res://assets/sound_effects/player_death.mp3" id="3_f34a2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ockn5"]
 atlas = ExtResource("2_qxatd")
@@ -272,7 +273,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"death",
-"speed": 5.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -425,7 +426,8 @@ script = ExtResource("1_x2ja2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_8a4cs")
-animation = &"walk_side"
+animation = &"death"
+frame_progress = 0.500926
 offset = Vector2(0, -15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -479,6 +481,10 @@ show_percentage = false
 [node name="regen_timer" type="Timer" parent="."]
 wait_time = 5.0
 autostart = true
+
+[node name="death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_f34a2")
+bus = &"sound_effects"
 
 [connection signal="body_entered" from="player_hitbox" to="." method="_on_player_hitbox_body_entered"]
 [connection signal="body_exited" from="player_hitbox" to="." method="_on_player_hitbox_body_exited"]

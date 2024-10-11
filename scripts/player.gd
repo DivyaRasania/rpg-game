@@ -6,7 +6,6 @@ var current_direction = "none"
 var enemy_in_attack_range = false
 var enemy_attack_cooldown = true
 var player_alive = true
-var health = 100
 var attack_in_progress = false
 
 func _ready():
@@ -96,10 +95,10 @@ func _on_player_hitbox_body_exited(body):
 
 func enemy_attack():
 	if enemy_in_attack_range and enemy_attack_cooldown:
-		health -= 20
+		global.player_health -= 20
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
-		if health <= 0:
+		if global.player_health <= 0:
 			player_alive = false
 			self.queue_free()
 
@@ -146,18 +145,18 @@ func current_camera():
 
 func update_health():
 	var health_bar = $healthbar
-	health_bar.value = health
+	health_bar.value = global.player_health
 	
-	if health >= 100:
+	if global.player_health >= 100:
 		health_bar.visible = false
 	else:
 		health_bar.visible = true
 
-func _on_regen_timer_timeout():
-	if health < 100:
-		health += 20
-		if health > 100:
-			health = 100
-	
-	if health <= 0:
-		health = 0
+# func _on_regen_timer_timeout():
+	#if health < 100:
+		#health += 20
+		#if health > 100:
+			#health = 100
+	#
+	#if health <= 0:
+		#health = 0

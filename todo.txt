@@ -1,3 +1,4 @@
-Play specific slime animation when looking at player
-Make it 30s long
-Recenter cliff_side scene camera like world
+Include at least two outside creative commons audio assets. You do not need to create any custom assets instead you need to add 2 assets like background music or sound effects. (background music already added, death sounds and heal sound needs to be added)
+Include ex least one UI element that is displayed during gameplay. (timer)
+Fully update your design doc to reflect your final project status.
+Gameplay must be able to last for a 30-sec minimum. Only one level is required.
