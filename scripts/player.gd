@@ -10,6 +10,7 @@ var attack_in_progress = false
 
 func _ready():
 	$AnimatedSprite2D.play("idle_front")
+	$Sprite2D.hide()
 
 func _physics_process(delta):
 	player_movement(delta)
@@ -99,8 +100,12 @@ func enemy_attack():
 		enemy_attack_cooldown = false
 		$attack_cooldown.start()
 		if global.player_health <= 0:
+			$AnimatedSprite2D.hide()
+			print("dead")
 			player_alive = false
-			self.queue_free()
+			#$healthbar.hide()
+			$Sprite2D.show()
+			$AnimationPlayer.play("death")
 
 func _on_attack_cooldown_timeout():
 	enemy_attack_cooldown = true

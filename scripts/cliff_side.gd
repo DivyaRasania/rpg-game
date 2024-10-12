@@ -19,4 +19,5 @@ func change_scene():
 func _on_area_2d_body_entered(body):
 	if body.has_method("player"):
 		global.player_health = 100
-	$heal.hide()
+		$heal/heal_taken.play()
+		$heal.hide()

@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://cai7vmxeve1b0"]
+[gd_scene load_steps=14 format=3 uid="uid://cai7vmxeve1b0"]
 
 [ext_resource type="Script" path="res://scripts/cliff_side.gd" id="1_425o1"]
 [ext_resource type="Texture2D" uid="uid://cax1s3vm8idlb" path="res://assets/art/tilesets/plains.png" id="1_tod55"]
 [ext_resource type="Texture2D" uid="uid://ce230qyugsh85" path="res://assets/art/tilesets/grass.png" id="2_y6a5w"]
 [ext_resource type="Texture2D" uid="uid://dgg0oj3muujej" path="res://assets/art/objects/objects.png" id="3_ifoes"]
 [ext_resource type="PackedScene" uid="uid://v4hrjcqkel1b" path="res://scenes/player.tscn" id="4_f17vw"]
-[ext_resource type="Texture2D" uid="uid://byixfkid4hpf3" path="res://assets/heal_potion.png" id="6_vs6ny"]
+[ext_resource type="AudioStream" uid="uid://dit448i3g86ng" path="res://assets/sound_effects/heal.mp3" id="6_b7iom"]
+[ext_resource type="Texture2D" uid="uid://byixfkid4hpf3" path="res://assets/art/heal_potion.png" id="6_vs6ny"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n1c6a"]
 texture = ExtResource("1_tod55")
@@ -102,7 +103,7 @@ layer_2/y_sort_enabled = true
 polygon = PackedVector2Array(15, 17, 160, 17, 161, 146, 137, 147, 131, 155, 131, 177, 120, 180, 115, 188, 114, 208, 63, 208, 63, 172, 57, 162, 16, 162, 13, 16, 7, 11, 8, 222, 180, 222, 180, 9, 10, 9)
 
 [node name="heal" type="Sprite2D" parent="."]
-position = Vector2(95, 111)
+position = Vector2(95, 117)
 texture = ExtResource("6_vs6ny")
 
 [node name="Area2D" type="Area2D" parent="heal"]
@@ -111,8 +112,11 @@ texture = ExtResource("6_vs6ny")
 position = Vector2(-2.5, -4.5)
 shape = SubResource("RectangleShape2D_d76bt")
 
+[node name="heal_taken" type="AudioStreamPlayer" parent="heal"]
+stream = ExtResource("6_b7iom")
+
 [node name="player" parent="." instance=ExtResource("4_f17vw")]
-position = Vector2(90, 178)
+position = Vector2(89, 186)
 
 [node name="cliffside_exit_point" type="Area2D" parent="."]
 

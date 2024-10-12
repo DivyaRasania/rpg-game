@@ -8,6 +8,7 @@ var can_take_damage = true
 
 func _ready():
 	$AnimatedSprite2D.play("idle_front")
+	$Sprite2D.hide()
 
 func _physics_process(delta):
 	deal_with_damage()
@@ -50,8 +51,10 @@ func deal_with_damage():
 			can_take_damage = false
 			global.enemy_health -= 20
 			if global.enemy_health <= 0:
-				self.queue_free()
 				global.slime_dead = true
+				$AnimatedSprite2D.hide()
+				$Sprite2D.show()
+				$AnimationPlayer.play("death")
 
 func _on_take_damage_cooldown_timeout():
 	can_take_damage = true
@@ -65,11 +68,5 @@ func update_health():
 	else:
 		health_bar.visible = true
 
-func _on_regen_timer_timeout():
-	if global.enemy_health < 100:
-		global.enemy_health += 20
-		if global.enemy_health > 100:
-			global.enemy_health = 100
-	
 	if global.enemy_health <= 0:
 		global.enemy_health = 0

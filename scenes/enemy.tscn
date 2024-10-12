@@ -1,7 +1,8 @@
-[gd_scene load_steps=72 format=3 uid="uid://coegvqdmc5s6"]
+[gd_scene load_steps=76 format=3 uid="uid://coegvqdmc5s6"]
 
 [ext_resource type="Script" path="res://scripts/enemy.gd" id="1_6a5ap"]
 [ext_resource type="Texture2D" uid="uid://der7hup45pkfo" path="res://assets/art/characters/slime.png" id="1_mj7rs"]
+[ext_resource type="AudioStream" uid="uid://dsk3h78hlyjkd" path="res://assets/sound_effects/slime_death.wav" id="3_4b876"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k13b1"]
 atlas = ExtResource("1_mj7rs")
@@ -535,14 +536,118 @@ radius = 4.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7cisg"]
 radius = 8.0
 
+[sub_resource type="Animation" id="Animation_o83u8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [84]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("death:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("detection_area/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_g718q"]
+resource_name = "death"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [84, 85, 85, 86, 87]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("death:playing")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("detection_area/CollisionShape2D:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ihyuu"]
+_data = {
+"RESET": SubResource("Animation_o83u8"),
+"death": SubResource("Animation_g718q")
+}
+
 [node name="enemy" type="CharacterBody2D"]
 script = ExtResource("1_6a5ap")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_cnpom")
-animation = &"death"
-frame_progress = 0.302978
+animation = &"idle_front"
 offset = Vector2(0, -6)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_mj7rs")
+hframes = 7
+vframes = 13
+frame = 84
 
 [node name="detection_area" type="Area2D" parent="."]
 collision_layer = 2
@@ -592,13 +697,16 @@ offset_bottom = 29.0
 scale = Vector2(0.1, 0.1)
 show_percentage = false
 
-[node name="regen_timer" type="Timer" parent="."]
-wait_time = 5.0
-autostart = true
+[node name="death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4b876")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ihyuu")
+}
 
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
 [connection signal="body_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]
 [connection signal="body_exited" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_exited"]
 [connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]
-[connection signal="timeout" from="regen_timer" to="." method="_on_regen_timer_timeout"]

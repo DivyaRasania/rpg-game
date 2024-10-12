@@ -1,4 +1,9 @@
-Include at least two outside creative commons audio assets. You do not need to create any custom assets instead you need to add 2 assets like background music or sound effects. (background music already added, death sounds and heal sound needs to be added)
-Include ex least one UI element that is displayed during gameplay. (timer)
-Fully update your design doc to reflect your final project status.
+Include ex least one UI element that is displayed during gameplay. (lives)
+Fully update your design doc to reflect your final project status. (module 4 project pitch)
 Gameplay must be able to last for a 30-sec minimum. Only one level is required.
+
+stop chasing player once slime is dead
+dont kill all enemies when one of them dies
+
+10 coins = full health
+all enemies dead = new level
