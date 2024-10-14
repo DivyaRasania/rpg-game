@@ -1,15 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://cai7vmxeve1b0"]
+[gd_scene load_steps=17 format=3 uid="uid://cai7vmxeve1b0"]
 
-[ext_resource type="Script" path="res://scripts/cliff_side.gd" id="1_425o1"]
-[ext_resource type="Texture2D" uid="uid://cax1s3vm8idlb" path="res://assets/art/tilesets/plains.png" id="1_tod55"]
-[ext_resource type="Texture2D" uid="uid://ce230qyugsh85" path="res://assets/art/tilesets/grass.png" id="2_y6a5w"]
-[ext_resource type="Texture2D" uid="uid://dgg0oj3muujej" path="res://assets/art/objects/objects.png" id="3_ifoes"]
-[ext_resource type="PackedScene" uid="uid://v4hrjcqkel1b" path="res://scenes/player.tscn" id="4_f17vw"]
-[ext_resource type="AudioStream" uid="uid://dit448i3g86ng" path="res://assets/sound_effects/heal.mp3" id="6_b7iom"]
-[ext_resource type="Texture2D" uid="uid://byixfkid4hpf3" path="res://assets/art/heal_potion.png" id="6_vs6ny"]
+[ext_resource type="Script" path="res://scripts/hidden_heal.gd" id="1_bq586"]
+[ext_resource type="Texture2D" uid="uid://cax1s3vm8idlb" path="res://assets/art/tilesets/plains.png" id="2_f782w"]
+[ext_resource type="Texture2D" uid="uid://ce230qyugsh85" path="res://assets/art/tilesets/grass.png" id="3_mlc16"]
+[ext_resource type="Texture2D" uid="uid://dgg0oj3muujej" path="res://assets/art/objects/objects.png" id="4_5nd0r"]
+[ext_resource type="Texture2D" uid="uid://byixfkid4hpf3" path="res://assets/art/heal_potion.png" id="5_r8uvg"]
+[ext_resource type="AudioStream" uid="uid://dit448i3g86ng" path="res://assets/sound_effects/heal.mp3" id="6_ueo2y"]
+[ext_resource type="PackedScene" uid="uid://v4hrjcqkel1b" path="res://scenes/player.tscn" id="7_1ucc3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n1c6a"]
-texture = ExtResource("1_tod55")
+texture = ExtResource("2_f782w")
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -40,11 +40,11 @@ texture = ExtResource("1_tod55")
 5:4/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_iceet"]
-texture = ExtResource("2_y6a5w")
+texture = ExtResource("3_mlc16")
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1v4bv"]
-texture = ExtResource("3_ifoes")
+texture = ExtResource("4_5nd0r")
 0:0/0 = 0
 0:0/0/y_sort_origin = 4
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.87782, 2.91682, 5.87782, 2.91682, 1.81196, 4.86136, -1.81196, 4.86136)
@@ -83,8 +83,59 @@ size = Vector2(11, 15)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qjrdw"]
 size = Vector2(50.5, 16.5)
 
-[node name="cliff_side" type="Node2D"]
-script = ExtResource("1_425o1")
+[sub_resource type="Animation" id="Animation_4d21h"]
+resource_name = "taken"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("heal/heal_taken:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("heal")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_w6h4f"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("heal/heal_taken:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1jtjd"]
+_data = {
+"RESET": SubResource("Animation_w6h4f"),
+"taken": SubResource("Animation_4d21h")
+}
+
+[node name="hidden_heal" type="Node2D"]
+script = ExtResource("1_bq586")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -104,26 +155,31 @@ polygon = PackedVector2Array(15, 17, 160, 17, 161, 146, 137, 147, 131, 155, 131,
 
 [node name="heal" type="Sprite2D" parent="."]
 position = Vector2(95, 117)
-texture = ExtResource("6_vs6ny")
+texture = ExtResource("5_r8uvg")
 
-[node name="Area2D" type="Area2D" parent="heal"]
+[node name="heal_area" type="Area2D" parent="heal"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="heal/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="heal/heal_area"]
 position = Vector2(-2.5, -4.5)
 shape = SubResource("RectangleShape2D_d76bt")
 
 [node name="heal_taken" type="AudioStreamPlayer" parent="heal"]
-stream = ExtResource("6_b7iom")
+stream = ExtResource("6_ueo2y")
 
-[node name="player" parent="." instance=ExtResource("4_f17vw")]
+[node name="player" parent="." instance=ExtResource("7_1ucc3")]
 position = Vector2(89, 186)
 
-[node name="cliffside_exit_point" type="Area2D" parent="."]
+[node name="exit_point" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="cliffside_exit_point"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="exit_point"]
 position = Vector2(89, 199.75)
 shape = SubResource("RectangleShape2D_qjrdw")
 
-[connection signal="body_entered" from="heal/Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_entered" from="cliffside_exit_point" to="." method="_on_cliffside_exit_point_body_entered"]
-[connection signal="body_exited" from="cliffside_exit_point" to="." method="_on_cliffside_exit_point_body_exited"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1jtjd")
+}
+
+[connection signal="body_entered" from="heal/heal_area" to="." method="_on_heal_area_body_entered"]
+[connection signal="body_entered" from="exit_point" to="." method="_on_exit_point_body_entered"]
+[connection signal="body_exited" from="exit_point" to="." method="_on_exit_point_body_exited"]

@@ -51,8 +51,10 @@ func deal_with_damage():
 			can_take_damage = false
 			global.enemy_health -= 20
 			if global.enemy_health <= 0:
-				global.slime_dead = true
+				global.enemy_dead = true
+				player_chase = false
 				$AnimatedSprite2D.hide()
+				$healthbar.visible = false
 				$Sprite2D.show()
 				$AnimationPlayer.play("death")
 

@@ -1,14 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://byymt36r5asdt"]
+[gd_scene load_steps=13 format=3 uid="uid://byymt36r5asdt"]
 
-[ext_resource type="Texture2D" uid="uid://cax1s3vm8idlb" path="res://assets/art/tilesets/plains.png" id="1_8bh2d"]
-[ext_resource type="Script" path="res://scripts/world.gd" id="1_vope1"]
-[ext_resource type="Texture2D" uid="uid://ce230qyugsh85" path="res://assets/art/tilesets/grass.png" id="2_s1chg"]
-[ext_resource type="Texture2D" uid="uid://dgg0oj3muujej" path="res://assets/art/objects/objects.png" id="3_jppj6"]
-[ext_resource type="PackedScene" uid="uid://v4hrjcqkel1b" path="res://scenes/player.tscn" id="4_ucp33"]
-[ext_resource type="PackedScene" uid="uid://coegvqdmc5s6" path="res://scenes/enemy.tscn" id="5_3hyk6"]
+[ext_resource type="Script" path="res://scripts/level_1.gd" id="1_7b8lq"]
+[ext_resource type="Texture2D" uid="uid://cax1s3vm8idlb" path="res://assets/art/tilesets/plains.png" id="2_m24kd"]
+[ext_resource type="Texture2D" uid="uid://ce230qyugsh85" path="res://assets/art/tilesets/grass.png" id="3_oi7qo"]
+[ext_resource type="Texture2D" uid="uid://dgg0oj3muujej" path="res://assets/art/objects/objects.png" id="4_y10kc"]
+[ext_resource type="PackedScene" uid="uid://v4hrjcqkel1b" path="res://scenes/player.tscn" id="5_7dgp0"]
+[ext_resource type="PackedScene" uid="uid://coegvqdmc5s6" path="res://scenes/enemy.tscn" id="6_km6xp"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ryqan"]
-texture = ExtResource("1_8bh2d")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l3srv"]
+texture = ExtResource("2_m24kd")
 1:0/0 = 0
 2:0/0 = 0
 3:0/0 = 0
@@ -38,12 +38,12 @@ texture = ExtResource("1_8bh2d")
 5:5/0 = 0
 5:4/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_mcd6q"]
-texture = ExtResource("2_s1chg")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gy6lm"]
+texture = ExtResource("3_oi7qo")
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qnsfr"]
-texture = ExtResource("3_jppj6")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cvlds"]
+texture = ExtResource("4_y10kc")
 0:0/0 = 0
 0:0/0/y_sort_origin = 4
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5.87782, 2.91682, 5.87782, 2.91682, 1.81196, 4.86136, -1.81196, 4.86136)
@@ -72,16 +72,19 @@ texture = ExtResource("3_jppj6")
 
 [sub_resource type="TileSet" id="TileSet_5edjg"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_ryqan")
-sources/1 = SubResource("TileSetAtlasSource_mcd6q")
-sources/2 = SubResource("TileSetAtlasSource_qnsfr")
+sources/0 = SubResource("TileSetAtlasSource_l3srv")
+sources/1 = SubResource("TileSetAtlasSource_gy6lm")
+sources/2 = SubResource("TileSetAtlasSource_cvlds")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ai3bh"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ikyw"]
 size = Vector2(29, 23)
 
-[node name="world" type="Node2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ai3bh"]
+size = Vector2(15, 39)
+
+[node name="Level1" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_vope1")
+script = ExtResource("1_7b8lq")
 
 [node name="TileMap" type="TileMap" parent="."]
 y_sort_enabled = true
@@ -93,24 +96,32 @@ layer_1/name = "cliff"
 layer_1/tile_data = PackedInt32Array(15, 65536, 5, 65551, 65536, 5, 131087, 65536, 5, 196623, 65536, 6, 196624, 131072, 6, 196625, 327680, 4, 262161, 65536, 5, 327697, 65536, 6, 327703, 196608, 6, 262167, 262144, 4, 262168, 131072, 6, 262169, 131072, 6, 262170, 131072, 6, 262171, 131072, 6, 327698, 131072, 6, 327699, 131072, 6, 327700, 131072, 6, 327701, 131072, 6, 327702, 131072, 6, 16, 131072, 5, 17, 131072, 5, 18, 131072, 5, 19, 131072, 5, 20, 131072, 5, 21, 131072, 5, 22, 131072, 5, 23, 131072, 5, 24, 131072, 5, 25, 131072, 5, 26, 131072, 5, 27, 131072, 5, 65563, 131072, 5, 65562, 131072, 5, 65561, 131072, 5, 65560, 131072, 5, 65559, 131072, 5, 65558, 131072, 5, 65557, 131072, 5, 65556, 131072, 5, 65555, 131072, 5, 65554, 131072, 5, 65553, 131072, 5, 65552, 131072, 5, 131088, 131072, 5, 131089, 131072, 5, 131090, 131072, 5, 131091, 131072, 5, 131092, 131072, 5, 131093, 131072, 5, 131094, 131072, 5, 131095, 131072, 5, 131096, 131072, 5, 131097, 131072, 5, 131098, 131072, 5, 131099, 131072, 5, 196635, 131072, 5, 196634, 131072, 5, 196633, 131072, 5, 196632, 131072, 5, 196631, 131072, 5, 196630, 131072, 5, 196629, 131072, 5, 196628, 131072, 5, 196627, 131072, 5, 196626, 131072, 5, 262162, 131072, 5, 262163, 131072, 5, 262164, 131072, 5, 262165, 131072, 5, 262166, 131072, 5)
 layer_2/name = "ysort"
 layer_2/y_sort_enabled = true
-layer_2/tile_data = PackedInt32Array(589838, 2, 5, 65538, 393218, 7, 65549, 655362, 7, 720905, 655362, 7, 196618, 2, 5, 655384, 655362, 7, 589825, 524290, 6, 393236, 2, 1, 196634, 2, 1, 655386, 2, 1, 196613, 2, 1, 131078, 2, 1, 393224, 2, 0, 393223, 327682, 0, 655364, 393218, 7, 655372, 393218, 7, 196615, 524290, 6, 65554, 524290, 6, 131093, 2, 5, 196632, 2, 1, 65560, 2, 1, 65562, 655362, 7, 131097, 393218, 7, 720917, 393218, 7, 262156, 2, 1)
+layer_2/tile_data = PackedInt32Array(589838, 2, 5, 65538, 393218, 7, 65549, 655362, 7, 720905, 655362, 7, 196618, 2, 5, 655384, 655362, 7, 589825, 524290, 6, 393236, 2, 1, 196634, 2, 1, 655386, 2, 1, 196613, 2, 1, 131078, 2, 1, 655364, 393218, 7, 655372, 393218, 7, 196615, 524290, 6, 65554, 524290, 6, 131093, 2, 5, 196632, 2, 1, 65560, 2, 1, 65562, 655362, 7, 131097, 393218, 7, 720917, 393218, 7, 262156, 2, 1)
 
-[node name="player" parent="." instance=ExtResource("4_ucp33")]
+[node name="player" parent="." instance=ExtResource("5_7dgp0")]
 position = Vector2(50, 75)
 
-[node name="enemy" parent="." instance=ExtResource("5_3hyk6")]
+[node name="enemy" parent="." instance=ExtResource("6_km6xp")]
 position = Vector2(160, 115)
 
 [node name="collisions" type="StaticBody2D" parent="."]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="collisions"]
-polygon = PackedVector2Array(0, 0, 145, 0, 145, -23, 174, -23, 174, 0, 243, 0, 243, 58, 244, 60, 245, 61, 246, 62, 248, 63, 274, 63, 274, 90, 276, 92, 277, 93, 280, 95, 380, 95, 382, 93, 383, 91, 383, 79, 448, 79, 448, 192, 0, 192, -1, 0, -5, 2, -4, 194, 450, 195, 450, -36, 0, -35)
+polygon = PackedVector2Array(242, 0, 242, 58, 244, 60, 245, 61, 248, 63, 274, 63, 274, 90, 276, 92, 277, 93, 278, 94, 280, 95, 379, 95, 380, 94, 382, 93, 383, 91, 383, 79, 448, 79, 448, 84, 463, 84, 463, 123, 448, 123, 448, 192, 0, 192, 0, 0, 145, 0, 145, -23, 174, -23, 174, 0, 240, 0, 240, -2, 176, -2, 176, -24, 144, -24, 144, -2, -2, -2, -2, 194, 449, 194, 449, 124, 464, 124, 464, 83, 449, 83, 449, -1, 240, -2, 240, 0)
 
-[node name="cliffside_transition_point" type="Area2D" parent="."]
+[node name="heal_entry" type="Area2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="cliffside_transition_point"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="heal_entry"]
 position = Vector2(159.5, -11.5)
+shape = SubResource("RectangleShape2D_2ikyw")
+
+[node name="level_2_entry" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="level_2_entry"]
+position = Vector2(455.5, 103.5)
 shape = SubResource("RectangleShape2D_ai3bh")
 
-[connection signal="body_entered" from="cliffside_transition_point" to="." method="_on_cliffside_transition_point_body_entered"]
-[connection signal="body_exited" from="cliffside_transition_point" to="." method="_on_cliffside_transition_point_body_exited"]
+[connection signal="body_entered" from="heal_entry" to="." method="_on_heal_entry_body_entered"]
+[connection signal="body_exited" from="heal_entry" to="." method="_on_heal_entry_body_exited"]
+[connection signal="body_entered" from="level_2_entry" to="." method="_on_level_2_entry_body_entered"]
+[connection signal="body_exited" from="level_2_entry" to="." method="_on_level_2_entry_body_exited"]

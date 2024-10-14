@@ -96,15 +96,15 @@ func _on_player_hitbox_body_exited(body):
 
 func enemy_attack():
 	if enemy_in_attack_range and enemy_attack_cooldown:
-		global.player_health -= 20
-		enemy_attack_cooldown = false
-		$attack_cooldown.start()
+		
+		if !global.enemy_dead:
+			global.player_health -= 20
+			enemy_attack_cooldown = false
+			$attack_cooldown.start()
+		
 		if global.player_health <= 0:
 			$AnimatedSprite2D.hide()
-			print("dead")
 			player_alive = false
-			#$healthbar.hide()
-			$Sprite2D.show()
 			$AnimationPlayer.play("death")
 
 func _on_attack_cooldown_timeout():
@@ -141,12 +141,12 @@ func _on_deal_attack_timer_timeout():
 	attack_in_progress = false
 
 func current_camera():
-	if global.current_scene == "world":
-		$world_camera.enabled = true
-		$cliffside_camera.enabled = false
-	elif global.current_scene == "cliff_side":
-		$world_camera.enabled = false
-		$cliffside_camera.enabled = true
+	if global.current_scene == "level_1":
+		$level_1_camera.enabled = true
+		$hidden_heal_camera.enabled = false
+	elif global.current_scene == "hidden_heal":
+		$level_1_camera.enabled = false
+		$hidden_heal_camera.enabled = true
 
 func update_health():
 	var health_bar = $healthbar
@@ -156,12 +156,3 @@ func update_health():
 		health_bar.visible = false
 	else:
 		health_bar.visible = true
-
-# func _on_regen_timer_timeout():
-	#if health < 100:
-		#health += 20
-		#if health > 100:
-			#health = 100
-	#
-	#if health <= 0:
-		#health = 0
